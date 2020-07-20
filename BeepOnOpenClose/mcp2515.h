@@ -9,8 +9,9 @@ char msgString[128];
 
 void Initialize()
 {
-Serial.begin(115200);
-  if (CAN0.begin(MCP_ANY, CAN_1000KBPS, MCP_16MHZ) == CAN_OK)
+  Serial.begin(115200);
+  //if (CAN0.begin(MCP_ANY, CAN_100KBPS, MCP_8MHZ) == CAN_OK)//K-CAN
+  if (CAN0.begin(MCP_ANY, CAN_1000KBPS, MCP_16MHZ) == CAN_OK)//K-CAN2
     Serial.println("MCP2515 Initialized Successfully!");
   else
     Serial.println("Error Initializing MCP2515...");
@@ -19,26 +20,21 @@ Serial.begin(115200);
 
   pinMode(CAN0_INT, INPUT);                           // Configuring pin for /INT input
 }
-void PrintMessage(){
-      sprintf(msgString, "0x%.3lX | %1d | ", rxId, len);
-      Serial.print(msgString);
-      for (byte i = 0; i < len; i++)
-      {
-        sprintf(msgString, " 0x%.2X |", rxBuf[i]);
-        Serial.print(msgString);
+void PrintMessage() {
+  sprintf(msgString, "0x%.3lX | %1d | ", rxId, len);
+  Serial.print(msgString);
+  for (byte i = 0; i < len; i++)
+  {
+    sprintf(msgString, " 0x%.2X |", rxBuf[i]);
+    Serial.print(msgString);
 
-      }
-      Serial.println();
-    }
-    
-    void WriteMessage(byte header,int bufferLength,byte payload[]){
-      sprintf(msgString, "0x%.3lX | %1d | ", rxId, len);
-      Serial.print(msgString);
-      for (byte i = 0; i < len; i++)
-      {
-        sprintf(msgString, " 0x%.2X |", rxBuf[i]);
-        Serial.print(msgString);
+  }
+  Serial.println();
+}
 
-      }
-      Serial.println();
-    }
+void WriteMessage(byte header, int bufferLength, byte payload[]) {
+  if (CAN0.sendMsgBuf(header, 0, bufferLength, payload) != CAN_OK)
+  {
+    Serial.print("Error sending packet");
+  }
+}

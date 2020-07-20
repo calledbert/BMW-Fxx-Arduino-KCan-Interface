@@ -5,38 +5,34 @@
 #include "actions.h"
 
 void setup() {
-  pinMode(4, OUTPUT);
+  pinMode(PinHorn, OUTPUT);
   Initialize();
 }
 
 void loop() {
   if (!digitalRead(CAN0_INT))                         // If CAN0_INT pin is low, read receive buffer
   {
-    CAN0.readMsgBuf(&rxId, &len, rxBuf);              // Read data: len = data length, buf = data byte(s)
-    if ((rxId & 0x1FFFFFFF) == 0x23A)
-    {
-      PrintMessage();
-    }
-
+    CAN0.readMsgBuf(&rxId, &len, rxBuf);              // Read data: rxId= Header, len = data length, buf = data byte(s)
+    // Print packets on serial port
+    //    if ((rxId & 0x1FFFFFFF) == 0x23A)
+    //    {
+    //      PrintMessage();
+    //    }
 
     switch (rxId)
     {
       case 0x23A:
         if (rxBuf[2] == 0x01)
         {
-          suonoApertura();
+          openSound();
           Serial.println("suonoApertura");
         }
         if (rxBuf[2] == 0x04)
         {
-          suonoChiusura();
+          closeSound();
           Serial.println("suonoChiusura");
         }
-        delay(2000);  
+        delay(2000);
     }
-
-//    if (false) {
-//      WriteMessage(0x2fc, 2, mode);
-//    }
   }
 }

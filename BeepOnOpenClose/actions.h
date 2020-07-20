@@ -1,18 +1,18 @@
-#define PinBuzzer 4
+#define PinHorn 4
 
-void suonoApertura()
+void openSound()
 {
-  digitalWrite(PinBuzzer, HIGH); // sets the digital pin 13 on
-  delay(20);            // waits for a second
-  digitalWrite(PinBuzzer, LOW);  // sets the digital pin 13 off
-  delay(100);  
-  digitalWrite(PinBuzzer, HIGH); 
+  digitalWrite(PinHorn, HIGH);
   delay(20);
-  digitalWrite(PinBuzzer, LOW);
+  digitalWrite(PinHorn, LOW);
+  delay(100);
+  digitalWrite(PinHorn, HIGH);
+  delay(20);
+  digitalWrite(PinHorn, LOW);
 }
-void suonoChiusura()
+void closeSound()
 {
-  digitalWrite(PinBuzzer, HIGH); // sets the digital pin 13 on
-  delay(20);            // waits for a second
-  digitalWrite(PinBuzzer, LOW);
+  digitalWrite(PinHorn, HIGH);
+  delay(20);
+  digitalWrite(PinHorn, LOW);
 }
