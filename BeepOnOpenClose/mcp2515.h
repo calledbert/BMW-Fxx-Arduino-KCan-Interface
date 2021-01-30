@@ -1,5 +1,5 @@
 // CAN0 INT and CS
-#define CAN0_INT 2                              // Set INT to pin 6
+#define CAN0_INT 2                              // Set INT to pin 2
 MCP_CAN CAN0(10);                               // Set CS to pin 10
 // CAN RX Variables
 long unsigned int rxId;
@@ -9,7 +9,7 @@ char msgString[128];
 
 void Initialize()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   //if (CAN0.begin(MCP_ANY, CAN_100KBPS, MCP_8MHZ) == CAN_OK)//K-CAN
   if (CAN0.begin(MCP_ANY, CAN_1000KBPS, MCP_16MHZ) == CAN_OK)//K-CAN2
     Serial.println("MCP2515 Initialized Successfully!");

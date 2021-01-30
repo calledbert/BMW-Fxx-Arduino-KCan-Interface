@@ -1,7 +1,8 @@
-#define PinHorn 4
+#define PinHorn 7
 
-void openSound()
+void startEngine()
 {
+  Serial.println("Apertura");
   digitalWrite(PinHorn, HIGH);
   delay(20);
   digitalWrite(PinHorn, LOW);
@@ -10,8 +11,16 @@ void openSound()
   delay(20);
   digitalWrite(PinHorn, LOW);
 }
-void closeSound()
+void stopEngine()
 {
+  digitalWrite(PinHorn, HIGH);
+  delay(20);
+  digitalWrite(PinHorn, LOW);
+  delay(100);
+  digitalWrite(PinHorn, HIGH);
+  delay(20);
+  digitalWrite(PinHorn, LOW);
+  delay(100);
   digitalWrite(PinHorn, HIGH);
   delay(20);
   digitalWrite(PinHorn, LOW);
